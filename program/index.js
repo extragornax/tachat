@@ -1,5 +1,14 @@
 const net = require('net');
+var tcpcli = new net.Socket();
+tcpcli.connect(8471, '68.190.131.246', function() {
+  console.log('Connected');
+});
+tcpcli.on('data', function(srvdat) {
+  console.log('Message:' + srvdat)
+})
 
+var srvmsg
+var decode = JSON.parse(srvdat)
 var w, h;
 
 function setup() {
@@ -20,9 +29,10 @@ function draw() {
 }
 
 function sendToServer() {
-  var send = document.getElementById("msg").value;
+  var lclmsg = document.getElementById("msg").value;
   document.getElementById("msg").value = null;
-  console.log(send);
+  var encode = JSON.stringify(lclmsg)
+  tcpcli.write(encode)
 }
 
 document.addEventListener("keydown", function (e) {
@@ -35,3 +45,5 @@ function getSize(){
   w = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
   h = window.innerHeight || document.documentElement.clientHeight ||document.body.clientHeight;
 }
+
+
