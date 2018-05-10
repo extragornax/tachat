@@ -1,0 +1,9 @@
+{
+  "name": "tachat",
+  "version": "1.0.0",
+  "description": "A chat client developed by Terminal Atomics for Developers",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  }
+}
